@@ -10,7 +10,7 @@
 
 A feature-rich photography light meter application for the M5Stack Cardputer, developed in MicroPython. It provides both Aperture Priority and Shutter Priority modes with a responsive and intuitive user interface.
 
-![App Screenshot](https://raw.githubusercontent.com/M5Stack/M5Unit-DLight/master/images/dlight_2.webp) 
+![App Screenshot](20250722_163746.jpg) 
 <!-- TODO: Replace this with your own app screenshot -->
 
 ### Hardware Requirements
