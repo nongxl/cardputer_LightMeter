@@ -53,9 +53,9 @@ This project is developed for deployment using **UIFlow2.0**.
 3.  **Open UIFlow2.0**: Launch the UIFlow2.0 IDE (either the web version at [flow.m5stack.com](https://uiflow2.m5stack.com/)).
 4.  **Select Device**: In the IDE, select "Cardputer" as your device and establish a connection via the correct COM port.
 5.  **Load Project**:
-    *   Download the `.m5f2` project file from this repository to your computer.
+    *   Download the `cardputer_LightMeter.m5f2` project file from this repository to your computer.
     *   In the UIFlow2.0 IDE, click on the "Open..." menu option (the folder icon).
-    *   Select the downloaded `.m5f2` file to import the entire project.
+    *   Select the downloaded `cardputer_LightMeter.m5f2` file to import the entire project.
 6.  **Deploy**: Click the **Run** button (the icon with a "play" triangle) to automatically download and execute the program on your Cardputer.
     
 ![App Screenshot](UIFlow2.jpg)
@@ -109,8 +109,8 @@ This project is developed for deployment using **UIFlow2.0**.
 3.  **打开 UIFlow2.0**: 启动 UIFlow2.0 IDE (可以是网页版 [flow.m5stack.com](https://uiflow2.m5stack.com/))。
 4.  **选择设备**: 在 IDE 中，选择 "Cardputer" 作为您的设备，并通过正确的 COM 端口建立连接。
 5.  **加载项目**:
-    *   从本代码库下载 `.m5f2` 项目文件到您的电脑。
+    *   从本代码库下载 `cardputer_LightMeter.m5f2` 项目文件到您的电脑。
     *   在 UIFlow2.0 IDE 中，点击“打开...”菜单选项（文件夹图标）。
-    *   选择已下载的 `.m5f2` 文件以导入整个项目。
+    *   选择已下载的 `cardputer_LightMeter.m5f2` 文件以导入整个项目。
 6.  **部署**: 点击 **运行** 按钮 (图标为“播放”三角形)，程序将会自动下载并到您的 Cardputer 上执行。
 ![应用截图](UIFlow2.jpg)

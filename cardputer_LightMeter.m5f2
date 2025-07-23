@@ -1,0 +1,322 @@
+{
+  "version": "V2.0",
+  "versionNumber": "V2.3.1",
+  "type": "cardputer",
+  "components": [
+    {
+      "name": "screen",
+      "type": "screen",
+      "layer": 0,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "__cardputer_screen",
+      "createTime": 1753065368996,
+      "x": 0,
+      "y": 0,
+      "width": 240,
+      "height": 135,
+      "backgroundColor": "#000000",
+      "size": 0,
+      "isSelected": true
+    },
+    {
+      "name": "titleLightMeter",
+      "type": "title",
+      "layer": 2,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "ki&Xs2pRz0yJZKaZ",
+      "createTime": 1753066947761,
+      "x": 0,
+      "y": 0,
+      "color": "#ffffff",
+      "backgroundColor": "#0000FF",
+      "text": "LightMeter",
+      "textOffset": 3,
+      "font": "Widgets.FONTS.DejaVu18",
+      "isSelected": false
+    },
+    {
+      "name": "battary",
+      "type": "label",
+      "layer": 2,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "thF_81E`JgnsSUSj",
+      "createTime": 1753070382663,
+      "x": 204,
+      "y": 2,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "battary",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "LUX",
+      "type": "label",
+      "layer": 3,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "cfboEh^cTvQObAE2",
+      "createTime": 1753070399363,
+      "x": 97,
+      "y": 21,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "LUX",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "ISO",
+      "type": "label",
+      "layer": 4,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "ev4ayKVl%U3-eSZk",
+      "createTime": 1753078470718,
+      "x": 95,
+      "y": 52,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "ISO",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "aperture",
+      "type": "label",
+      "layer": 5,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "l*v3637_=kF*rMSg",
+      "createTime": 1753078599428,
+      "x": 108,
+      "y": 78,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "A",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "shutter",
+      "type": "label",
+      "layer": 6,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "j!2h9WiZR$EQH+6e",
+      "createTime": 1753078616234,
+      "x": 93,
+      "y": 106,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "S",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "label0",
+      "type": "label",
+      "layer": 7,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "f@jQoEvb`1Z6%6w7",
+      "createTime": 1753080198822,
+      "x": 12,
+      "y": 21,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "LUX:",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "label1",
+      "type": "label",
+      "layer": 8,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "wbj^@P!P81#%7Sbe",
+      "createTime": 1753080235125,
+      "x": 10,
+      "y": 50,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "ISO:",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "label2",
+      "type": "label",
+      "layer": 9,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "iAOx#D!*OztfF=J0",
+      "createTime": 1753080267854,
+      "x": 7,
+      "y": 77,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "Aperture:",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "label3",
+      "type": "label",
+      "layer": 10,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "c_PU4qCSSX0WWLUU",
+      "createTime": 1753080304140,
+      "x": 10,
+      "y": 107,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "Shutter:",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "label4",
+      "type": "label",
+      "layer": 11,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "sjd0Y$FOKGLyGMa*",
+      "createTime": 1753080711585,
+      "x": 168,
+      "y": 51,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "input",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "label5",
+      "type": "label",
+      "layer": 12,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "w7^I%e^s_&7=hohM",
+      "createTime": 1753082740462,
+      "x": 169,
+      "y": 81,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "output",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    },
+    {
+      "name": "label6",
+      "type": "label",
+      "layer": 13,
+      "screenId": "builtin",
+      "screenName": "",
+      "id": "w^+q6lZOo&RSE8sd",
+      "createTime": 1753084420590,
+      "x": 167,
+      "y": 109,
+      "color": "#ffffff",
+      "backgroundColor": "#222222",
+      "text": "case",
+      "font": "Widgets.FONTS.DejaVu18",
+      "rotation": 0,
+      "isSelected": false
+    }
+  ],
+  "resources": [
+    {
+      "hardware": [
+        "hardware_button",
+        "hardware_pin_button",
+        "i2c",
+        "sdcard",
+        "ir",
+        "matrixkeyboard"
+      ]
+    },
+    {
+      "unit": [
+        "unit_dlight"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "type": "unit_dlight",
+      "name": "dlight_0",
+      "portList": [
+        "A",
+        "PAHUB",
+        "Custom"
+      ],
+      "portType": "A",
+      "userPort": [
+        22,
+        21
+      ],
+      "id": "rpbro-F4ePq!U5P2",
+      "createTime": 1753236885951,
+      "bus": "i2c0",
+      "pahubPortList": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pahubPort": 0,
+      "initBlockId": ";o!J4y(p1^wBCbT^cBV@"
+    }
+  ],
+  "hats": [],
+  "bases": [],
+  "i2cs": [
+    {
+      "id": "i2c0",
+      "portType": "A",
+      "userPort": [
+        22,
+        21
+      ],
+      "freq": "100000",
+      "blockId": "OtiI=z`H%e|OoiDKx,9F"
+    }
+  ],
+  "blockly": "<block type=\"basic_on_setup\" id=\"setup_block\" deletable=\"false\" x=\"50\" y=\"52\"><mutation isBegin=\"true\"></mutation><field name=\"UPDATEOP\">true</field><statement name=\"FUNC\"><block type=\"matrixkeyboard_init\" id=\"=:+Yn^cxwB]6B_}$DJJ/\"><next><block type=\"set_screen_brightness\" id=\"*^T=G%MSoK.]aM?o$QZR\"><field name=\"SCREEN\">builtin</field><value name=\"BRIGHTNESS\"><shadow type=\"math_slider\" id=\"mCJ~$pd=r3YU6!QFTR)G\"><mutation max=\"255\" min=\"0\" step=\"1\" precision=\"1\"></mutation><field name=\"NUM\">25</field></shadow></value><next><block type=\"system_m5_begin\" id=\"SsHcGpJhyNE3Sv$9@98|\"><next><block type=\"i2c_init\" id=\"vfb~PCan(#r=w67{y2N_\"><field name=\"NAME\">0</field><field name=\"FREQ\">100000</field><value name=\"SCL\"><shadow type=\"math_number\" id=\"B*nV,i_gdrq+gJGbXk3l\"><mutation max=\"Infinity\" min=\"0\" precision=\"0\"></mutation><field name=\"NUM\">1</field></shadow></value><value name=\"SDA\"><shadow type=\"math_number\" id=\"ww0day7a+qG#,x?R_hEe\"><mutation max=\"Infinity\" min=\"0\" precision=\"0\"></mutation><field name=\"NUM\">2</field></shadow></value><next><block type=\"unit_dlight_init\" id=\";o!J4y(p1^wBCbT^cBV@\"><field name=\"NAME\">dlight_0</field></block></next></block></next></block></next></block></next></block></statement></block><block type=\"basic_on_loop\" id=\"loop_block\" deletable=\"false\" x=\"450\" y=\"50\"><mutation isUpdate=\"true\"></mutation><field name=\"UPDATEOP\">true</field><statement name=\"FUNC\"><block type=\"system_m5_update\" id=\":E/^H^rqSA$yYprY:I^2\"><next><block type=\"label_set_text\" id=\"E#;C7|L!5]qF.a}y{xty\"><field name=\"NAME\">battary</field><value name=\"TEXT\"><shadow type=\"text\" id=\"(C`#84n@?pa,|b^C30A`\"><field name=\"TEXT\">Label</field></shadow><block type=\"power_get_battery_level\" id=\"l~]p:)7=R*YdHt?/?v0,\"></block></value><next><block type=\"label_set_text\" id=\"Tyjjz+-S*.(KmOtCAcpO\"><field name=\"NAME\">LUX</field><value name=\"TEXT\"><shadow type=\"text\" id=\"Ntp9qCQ0VkGqJ5JLK|PE\"><field name=\"TEXT\">Label</field></shadow><block type=\"unit_dlight_get_lux\" id=\"?DpkD1e]Ei6tay|O9o8;\"><field name=\"NAME\">dlight_0</field></block></value><next><block type=\"matrixkeyboard_tick\" id=\"Ug={2{cTWaq=D*gRhhe2\"></block></next></block></next></block></next></block></statement></block>",
+  "screen": [
+    {
+      "simulationName": "Built-in",
+      "type": "builtin",
+      "width": 240,
+      "height": 135,
+      "scale": 0.43,
+      "screenName": "",
+      "blockId": "",
+      "screenColorType": 0,
+      "id": "builtin",
+      "createTime": 1753065368993
+    }
+  ],
+  "logicWhenNum": 0,
+  "pythonCode": "import M5\nfrom M5 import Widgets, Power\nfrom hardware import MatrixKeyboard, I2C, Pin\nfrom unit import DLightUnit\nimport math\nimport time\n\n# --- 常量定义 ---\nUP_KEY_STR = '.'\nDOWN_KEY_STR = ';'\n\nCOLOR_DEFAULT = 0xffffff  # 白色\nCOLOR_FOCUSED = 0x33ff33  # 绿色\nCOLOR_INVALID = 0xff0000  # 红色 (用于无效选项)\nCOLOR_BACKGROUND = 0x000000\nPARAMETER_LIST_SIZE = 5  # 参数选择列表显示的行数，建议为奇数\n\n\n# --- 应用程序类 ---\nclass LightMeterApp:\n    def __init__(self):\n        # --- 状态变量 ---\n        self.current_mode = 'i'  # 'i', 'a', 's'\n        self.priority_mode = 'A'  # 'A' for Aperture, 'S' for Shutter\n        self.last_lux_value = 0\n\n        # --- 预设值 ---\n        self.iso_values = [50, 100, 200, 400, 800, 1000, 1200, 1600, 3200, 6400]\n        self.aperture_values = [0.95, 1.0, 1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 11.0, 16.0, 22.0]\n        self.shutter_values = [\"30s\", \"15s\", \"8s\", \"4s\", \"2s\", \"1s\", \"1/2\", \"1/4\", \"1/8\", \"1/15\", \"1/30\", \"1/60\",\n                               \"1/125\",\n                               \"1/250\", \"1/500\", \"1/1000\", \"1/2000\", \"1/4000\"]\n\n        # --- 当前预览值的索引 ---\n        self.preview_indices = {'ISO': 1, 'Aperture': 4, 'Shutter': 11}\n\n        # --- 硬件和界面元素 ---\n        self.kb = None\n        self.i2c0 = None\n        self.dlight_0 = None\n        self.ui_elements = {}\n\n    # --- 辅助函数 ---\n    def _shutter_to_float(self, shutter_str):\n        \"\"\"将快门字符串（如 '1/125'或'30s'）转换为浮点数\"\"\"\n        clean_str = shutter_str.strip().rstrip('s')\n        if \"/\" in clean_str:\n            parts = clean_str.split('/')\n            return float(parts[0]) / float(parts[1])\n        else:\n            return float(clean_str)\n\n    # --- 计算逻辑 ---\n    def _compute_aperture(self, ev, iso, shutter_speed):\n        ev_corrected = ev - math.log2(iso / 100)\n        f_number_sq = (2 ** ev_corrected) * shutter_speed\n        return math.sqrt(f_number_sq) if f_number_sq > 0 else 0\n\n    def _compute_shutter_speed(self, ev, iso, aperture):\n        ev_corrected = ev - math.log2(iso / 100)\n        denominator = (2 ** ev_corrected)\n        return (aperture ** 2) / denominator if denominator != 0 else 0\n\n    # --- 新增: 检查选项有效性的辅助函数 ---\n    def _is_choice_valid(self, param_key, choice_idx):\n        \"\"\"\n        预计算并检查给定的选项索引是否会导致一个有效的结果。\n        \"\"\"\n        try:\n            lux = self.dlight_0.get_lux()\n            ev = math.log2(lux / 2.5) if lux > 0 else -100\n\n            # 获取当前状态的副本\n            iso = self.iso_values[self.preview_indices['ISO']]\n            aperture = self.aperture_values[self.preview_indices['Aperture']]\n            shutter_str = self.shutter_values[self.preview_indices['Shutter']]\n\n            # 用待检查的值替换当前值\n            if param_key == 'ISO':\n                iso = self.iso_values[choice_idx]\n            elif param_key == 'Aperture':\n                aperture = self.aperture_values[choice_idx]\n            elif param_key == 'Shutter':\n                shutter_str = self.shutter_values[choice_idx]\n\n            # 执行预计算\n            if self.priority_mode == 'A':\n                shutter_float = self._compute_shutter_speed(ev, iso, aperture)\n                return self._shutter_to_float(self.shutter_values[-1]) <= shutter_float <= self._shutter_to_float(\n                    self.shutter_values[0])\n            elif self.priority_mode == 'S':\n                shutter_float = self._shutter_to_float(shutter_str)\n                aperture_float = self._compute_aperture(ev, iso, shutter_float)\n                return self.aperture_values[0] <= aperture_float <= self.aperture_values[-1]\n\n        except (ValueError, ZeroDivisionError, OSError):\n            return False  # 计算错误视为无效\n        return True # 默认有效\n\n    # --- 界面更新与核心逻辑 ---\n    def _update_parameter_colors(self):\n        \"\"\"根据当前焦点更新左侧参数标签颜色\"\"\"\n        self.ui_elements['iso_text_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)\n        self.ui_elements['aperture_text_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)\n        self.ui_elements['shutter_text_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)\n\n        mode_map = {'i': 'iso', 'a': 'aperture', 's': 'shutter'}\n        focus_label = self.ui_elements[f\"{mode_map[self.current_mode]}_text_label\"]\n        focus_label.setColor(COLOR_FOCUSED, COLOR_BACKGROUND)\n\n    def _update_parameter_list_display(self):\n        \"\"\"更新右侧的参数选择列表，并为无效选项标红\"\"\"\n        mode_map = {'i': 'ISO', 'a': 'Aperture', 's': 'Shutter'}\n        param_key = mode_map[self.current_mode]\n        values_list = getattr(self, f\"{param_key.lower()}_values\")\n        current_idx = self.preview_indices[param_key]\n\n        center_list_idx = PARAMETER_LIST_SIZE // 2\n\n        for i in range(PARAMETER_LIST_SIZE):\n            label = self.ui_elements['param_list_labels'][i]\n            data_idx = current_idx + (i - center_list_idx)\n\n            if 0 <= data_idx < len(values_list):\n                value = values_list[data_idx]\n                prefix = \"f/\" if param_key == 'Aperture' else \"\"\n                label.setText(f\"{prefix}{value}\")\n\n                # --- 核心修改：设置颜色 ---\n                if i == center_list_idx:\n                    label.setColor(COLOR_FOCUSED, COLOR_BACKGROUND)\n                elif self._is_choice_valid(param_key, data_idx):\n                    label.setColor(COLOR_DEFAULT, COLOR_BACKGROUND)\n                else:\n                    label.setColor(COLOR_INVALID, COLOR_BACKGROUND)\n            else:\n                label.setText(\"\")\n\n    def _update_and_recalculate(self):\n        \"\"\"\n        核心函数：根据当前优先模式，使用两个输入参数的预览值，\n        计算第三个参数，并更新整个UI显示。\n        \"\"\"\n        try:\n            # 总是先更新右侧列表，因为它现在需要显示有效性\n            self._update_parameter_list_display()\n\n            lux = self.dlight_0.get_lux()\n            ev = math.log2(lux / 2.5) if lux > 0 else -100\n\n            iso = self.iso_values[self.preview_indices['ISO']]\n            aperture = self.aperture_values[self.preview_indices['Aperture']]\n            shutter_str = self.shutter_values[self.preview_indices['Shutter']]\n\n            # 重置计算结果的颜色为默认白色\n            self.ui_elements['iso_value_label'].setText(str(iso))\n            self.ui_elements['aperture_value_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)\n            self.ui_elements['shutter_value_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)\n\n            if self.priority_mode == 'A':\n                self.ui_elements['aperture_value_label'].setText(f\"f/{aperture}\")\n                shutter_float = self._compute_shutter_speed(ev, iso, aperture)\n                closest_shutter = min(self.shutter_values, key=lambda s: abs(self._shutter_to_float(s) - shutter_float))\n                self.ui_elements['shutter_value_label'].setText(str(closest_shutter))\n                self.preview_indices['Shutter'] = self.shutter_values.index(closest_shutter)\n\n            elif self.priority_mode == 'S':\n                self.ui_elements['shutter_value_label'].setText(str(shutter_str))\n                shutter_float = self._shutter_to_float(shutter_str)\n                aperture_float = self._compute_aperture(ev, iso, shutter_float)\n                closest_aperture = min(self.aperture_values, key=lambda a: abs(a - aperture_float))\n                self.ui_elements['aperture_value_label'].setText(f\"f/{closest_aperture}\")\n                self.preview_indices['Aperture'] = self.aperture_values.index(closest_aperture)\n\n        except (ValueError, ZeroDivisionError, OSError) as e:\n            print(e)\n\n    # --- 事件处理 ---\n    def kb_pressed_event(self, kb_event):\n        key_str = self.kb.get_string()\n\n        if key_str in ['i', 'a', 's']:\n            self.current_mode = key_str\n            if key_str == 'a':\n                self.priority_mode = 'A'\n            elif key_str == 's':\n                self.priority_mode = 'S'\n            self._update_parameter_colors()\n            self._update_and_recalculate()\n\n        elif key_str in [UP_KEY_STR, DOWN_KEY_STR]:\n            mode_map = {'i': 'ISO', 'a': 'Aperture', 's': 'Shutter'}\n            param_key = mode_map[self.current_mode]\n            current_idx = self.preview_indices[param_key]\n            values_list = getattr(self, f\"{param_key.lower()}_values\")\n\n            next_idx = current_idx\n            if key_str == UP_KEY_STR:\n                if current_idx < len(values_list) - 1:\n                    next_idx = current_idx + 1\n            elif key_str == DOWN_KEY_STR:\n                if current_idx > 0:\n                    next_idx = current_idx - 1\n\n            # 只有当目标索引和当前不同，且目标是有效的时候，才移动\n            if next_idx != current_idx and self._is_choice_valid(param_key, next_idx):\n                self.preview_indices[param_key] = next_idx\n                self._update_and_recalculate()\n\n    # --- 主流程 ---\n    def setup(self):\n        M5.begin()\n        Widgets.setBrightness(25)\n        Widgets.fillScreen(COLOR_BACKGROUND)\n\n        # 初始化硬件\n        self.kb = MatrixKeyboard()\n        self.kb.set_callback(self.kb_pressed_event)\n        self.i2c0 = I2C(0, scl=Pin(1), sda=Pin(2), freq=100000)\n        self.dlight_0 = DLightUnit(self.i2c0)\n\n        # 初始化UI并存入字典\n        self.ui_elements['title'] = Widgets.Title(\"LightMeter\", 3, COLOR_DEFAULT, 0x0000FF, Widgets.FONTS.DejaVu18)\n        self.ui_elements['battary_label'] = Widgets.Label(\"B:\", 204, 2, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,\n                                                          Widgets.FONTS.DejaVu18)\n        self.ui_elements['lux_value_label'] = Widgets.Label(\"LUX\", 80, 21, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,\n                                                            Widgets.FONTS.DejaVu18)\n        self.ui_elements['iso_value_label'] = Widgets.Label(\"ISO\", 80, 52, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,\n                                                            Widgets.FONTS.DejaVu18)\n        self.ui_elements['aperture_value_label'] = Widgets.Label(\"A\", 80, 78, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,\n                                                                 Widgets.FONTS.DejaVu18)\n        self.ui_elements['shutter_value_label'] = Widgets.Label(\"S\", 80, 106, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,\n                                                                Widgets.FONTS.DejaVu18)\n\n        label_x_pos = 10\n        self.ui_elements['iso_text_label'] = Widgets.Label(\"ISO:\", label_x_pos, 50, 1.0, COLOR_DEFAULT,\n                                                           COLOR_BACKGROUND,\n                                                           Widgets.FONTS.DejaVu18)\n        self.ui_elements['aperture_text_label'] = Widgets.Label(\"APERT:\", label_x_pos, 77, 1.0, COLOR_DEFAULT,\n                                                                COLOR_BACKGROUND,\n                                                                Widgets.FONTS.DejaVu18)\n        self.ui_elements['shutter_text_label'] = Widgets.Label(\"SPEED:\", label_x_pos, 107, 1.0, COLOR_DEFAULT,\n                                                               COLOR_BACKGROUND,\n                                                               Widgets.FONTS.DejaVu18)\n\n        Widgets.Label(\"LUX:\", 12, 22, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND, Widgets.FONTS.DejaVu18)\n\n        # 创建右侧的参数选择列表\n        self.ui_elements['param_list_labels'] = []\n        for i in range(PARAMETER_LIST_SIZE):\n            y_pos = 40 + i * 20\n            label = Widgets.Label(\"\", 168, y_pos, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND, Widgets.FONTS.DejaVu18)\n            self.ui_elements['param_list_labels'].append(label)\n\n        # 设置初始状态并进行第一次计算\n        self._update_parameter_colors()\n        self._update_and_recalculate()\n\n    def loop(self):\n        M5.update()\n        self.kb.tick()\n\n        self.ui_elements['battary_label'].setText(str(Power.getBatteryLevel()))\n        if self.dlight_0:\n            try:\n                current_lux = self.dlight_0.get_lux()\n                if int(current_lux) != int(self.last_lux_value):\n                    self.last_lux_value = current_lux\n                    self.ui_elements['lux_value_label'].setText(str(int(self.last_lux_value)))\n                    self._update_and_recalculate()\n            except OSError:\n                pass\n\n        time.sleep_ms(20)\n\n\n# --- 程序入口 ---\nif __name__ == '__main__':\n    app = LightMeterApp()\n    try:\n        app.setup()\n        while True:\n            app.loop()\n    except (Exception, KeyboardInterrupt) as e:\n        try:\n            from utility import print_error_msg\n\n            print_error_msg(e)\n        except ImportError:\n            print(\"Firmware error or missing utility module.\")\n            print(e)",
+  "customList": []
+}
