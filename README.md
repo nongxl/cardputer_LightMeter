@@ -50,7 +50,7 @@ This project is developed for deployment using **UIFlow2.0**.
 
 1.  **Burn Firmware**: First, use **M5Burner** to burn the latest UIFlow2.0 firmware onto your Cardputer.
 2.  **Connect Device**: Press and hold the **G0** button while connecting your Cardputer to your computer via a USB-C cable to enter download mode.
-3.  **Open UIFlow2.0**: Launch the UIFlow2.0 IDE (either the web version at [flow.m5stack.com](https://uiflow2.m5stack.com/)).
+3.  **Open UIFlow2.0**: Launch the UIFlow2.0 IDE (either the web version at [uiflow2.m5stack.com](https://uiflow2.m5stack.com/)).
 4.  **Select Device**: In the IDE, select "Cardputer" as your device and establish a connection via the correct COM port.
 5.  **Load Project**:
     *   Download the `cardputer_LightMeter.m5f2` project file from this repository to your computer.
@@ -106,7 +106,7 @@ This project is developed for deployment using **UIFlow2.0**.
 
 1.  **烧录固件**: 首先，使用 **M5Burner** 工具为您的 Cardputer 烧录最新的 UIFlow2.0 固件。
 2.  **连接设备**: 按住 **G0** 键的同时，使用 USB-C 数据线将您的 Cardputer 连接到电脑，使其进入下载模式。
-3.  **打开 UIFlow2.0**: 启动 UIFlow2.0 IDE (可以是网页版 [flow.m5stack.com](https://uiflow2.m5stack.com/))。
+3.  **打开 UIFlow2.0**: 启动 UIFlow2.0 IDE (可以是网页版 [uiflow2.m5stack.com](https://uiflow2.m5stack.com/))。
 4.  **选择设备**: 在 IDE 中，选择 "Cardputer" 作为您的设备，并通过正确的 COM 端口建立连接。
 5.  **加载项目**:
     *   从本代码库下载 `cardputer_LightMeter.m5f2` 项目文件到您的电脑。
