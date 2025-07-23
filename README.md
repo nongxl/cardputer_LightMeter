@@ -44,17 +44,21 @@ A feature-rich photography light meter application for the M5Stack Cardputer, de
 -   **`.` key (Up Arrow)**: Scrolls up and selects a value for the focused parameter.
 -   **`;` key (Down Arrow)**: Scrolls down and selects a value for the focused parameter.
 
-### Installation
+### Installation (UIFlow2.0)
 
-This project is developed with MicroPython. You can use tools like `mpremote` to deploy the code to your Cardputer.
+This project is developed for deployment using **UIFlow2.0**.
 
-1.  Connect your Cardputer to your computer via USB.
-2.  Open your terminal and run the following command to copy the main program file to the device:
-    mpremote connect autodetect fs cp main.py :
-3. If your project includes library files, place them in a lib/ directory and upload them with the following command:
-    mpremote connect autodetect fs cp -r lib/ :
-4. Press the reset button on the side of the Cardputer, and the application will run automatically.
+1.  **Burn Firmware**: First, use **M5Burner** to burn the latest UIFlow2.0 firmware onto your Cardputer.
+2.  **Connect Device**: Press and hold the **G0** button while connecting your Cardputer to your computer via a USB-C cable to enter download mode.
+3.  **Open UIFlow2.0**: Launch the UIFlow2.0 IDE (either the web version at [flow.m5stack.com](https://uiflow2.m5stack.com/)).
+4.  **Select Device**: In the IDE, select "Cardputer" as your device and establish a connection via the correct COM port.
+5.  **Load Project**:
+    *   Download the `.m5f2` project file from this repository to your computer.
+    *   In the UIFlow2.0 IDE, click on the "Open..." menu option (the folder icon).
+    *   Select the downloaded `.m5f2` file to import the entire project.
+6.  **Deploy**: Click the **Run** button (the icon with a "play" triangle) to automatically download and execute the program on your Cardputer.
     
+![App Screenshot](UIFlow2.jpg)
 ---
 
 <a name="中文"></a>
@@ -96,13 +100,17 @@ This project is developed with MicroPython. You can use tools like `mpremote` to
 -   **`.` 键 (上箭头)**: 向上滚动并选择当前焦点参数的值。
 -   **`;` 键 (下箭头)**: 向下滚动并选择当前焦点参数的值。
 
-### 安装与部署
+### 安装与部署 (UIFlow2.0)
 
-本项目基于 MicroPython 开发，您可以使用 `mpremote` 工具将代码部署到 Cardputer。
+本项目使用 **UIFlow2.0** 进行开发和部署。
 
-1.  将您的 Cardputer 通过 USB 连接到电脑。
-2.  打开终端或命令行工具，执行以下命令将主程序文件复制到设备：
-    mpremote connect autodetect fs cp main.py :
-3.  如果您的项目包含库文件，请将它们放入 lib/ 目录，并使用以下命令上传：
-    mpremote connect autodetect fs cp -r lib/ :
-4. 按下 Cardputer 侧面的重启按钮，程序将自动运行。    
+1.  **烧录固件**: 首先，使用 **M5Burner** 工具为您的 Cardputer 烧录最新的 UIFlow2.0 固件。
+2.  **连接设备**: 按住 **G0** 键的同时，使用 USB-C 数据线将您的 Cardputer 连接到电脑，使其进入下载模式。
+3.  **打开 UIFlow2.0**: 启动 UIFlow2.0 IDE (可以是网页版 [flow.m5stack.com](https://uiflow2.m5stack.com/))。
+4.  **选择设备**: 在 IDE 中，选择 "Cardputer" 作为您的设备，并通过正确的 COM 端口建立连接。
+5.  **加载项目**:
+    *   从本代码库下载 `.m5f2` 项目文件到您的电脑。
+    *   在 UIFlow2.0 IDE 中，点击“打开...”菜单选项（文件夹图标）。
+    *   选择已下载的 `.m5f2` 文件以导入整个项目。
+6.  **部署**: 点击 **运行** 按钮 (图标为“播放”三角形)，程序将会自动下载并到您的 Cardputer 上执行。
+![应用截图](UIFlow2.jpg)
