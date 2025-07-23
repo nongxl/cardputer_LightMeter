@@ -11,6 +11,7 @@
 A feature-rich photography light meter application for the M5Stack Cardputer, developed in MicroPython. It provides both Aperture Priority and Shutter Priority modes with a responsive and intuitive user interface.
 
 ![App Screenshot](20250722_163746.jpg) 
+![App Screenshot](20250722_162342.webp) 
 <!-- TODO: Replace this with your own app screenshot -->
 
 ### Hardware Requirements
