@@ -1,5 +1,5 @@
 import M5
-from M5 import Widgets, Power
+from M5 import Power, Lcd, Widgets
 from hardware import MatrixKeyboard, I2C, Pin
 from unit import DLightUnit
 import math
@@ -9,27 +9,40 @@ import time
 UP_KEY_STR = '.'
 DOWN_KEY_STR = ';'
 
+# --- 优化后的颜色方案 ---
 COLOR_DEFAULT = 0xffffff  # 白色
-COLOR_FOCUSED = 0x33ff33  # 绿色
-COLOR_INVALID = 0xff0000  # 红色 (用于无效选项)
-COLOR_BACKGROUND = 0x000000
-PARAMETER_LIST_SIZE = 5  # 参数选择列表显示的行数，建议为奇数
+COLOR_FOCUSED = 0x33ff33  # 绿色 (焦点)
+COLOR_INVALID = 0xff0000  # 红色 (无效选项)
+COLOR_BACKGROUND = 0x000000  # 黑色
+COLOR_TITLE_BG = 0x0000FF  # 标题背景色
+COLOR_GRADIENT_1 = 0xCCCCCC  # 渐变色1 (亮灰色)
+COLOR_GRADIENT_2 = 0x555555  # 渐变色2 (暗灰色)
+
+PARAMETER_LIST_SIZE = 5  # 参数选择列表显示的行数，必须为奇数
+LIST_ITEM_HEIGHT = 20  # 列表项的高度
 
 
 # --- 应用程序类 ---
 class LightMeterApp:
     def __init__(self):
         # --- 状态变量 ---
-        self.current_mode = 'i'  # 'i', 'a', 's'
-        self.priority_mode = 'A'  # 'A' for Aperture, 'S' for Shutter
+        self.current_mode = 'i'
+        self.priority_mode = 'A'
         self.last_lux_value = 0
+
+        # --- 动画状态变量 ---
+        self.is_animating = False
+        self.anim_duration = 120  # 动画时长 (毫秒)
+        self.anim_start_time = 0
+        self.anim_start_y = 0.0
+        self.anim_target_y = 0.0
+        self.anim_current_y = 0.0
 
         # --- 预设值 ---
         self.iso_values = [50, 100, 200, 400, 800, 1000, 1200, 1600, 3200, 6400]
         self.aperture_values = [0.95, 1.0, 1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 11.0, 16.0, 22.0]
         self.shutter_values = ["30s", "15s", "8s", "4s", "2s", "1s", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60",
-                               "1/125",
-                               "1/250", "1/500", "1/1000", "1/2000", "1/4000"]
+                               "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"]
 
         # --- 当前预览值的索引 ---
         self.preview_indices = {'ISO': 1, 'Aperture': 4, 'Shutter': 11}
@@ -39,10 +52,10 @@ class LightMeterApp:
         self.i2c0 = None
         self.dlight_0 = None
         self.ui_elements = {}
+        self.param_list_canvas = None  # 用于动画的离屏画布
 
     # --- 辅助函数 ---
     def _shutter_to_float(self, shutter_str):
-        """将快门字符串（如 '1/125'或'30s'）转换为浮点数"""
         clean_str = shutter_str.strip().rstrip('s')
         if "/" in clean_str:
             parts = clean_str.split('/')
@@ -61,21 +74,16 @@ class LightMeterApp:
         denominator = (2 ** ev_corrected)
         return (aperture ** 2) / denominator if denominator != 0 else 0
 
-    # --- 新增: 检查选项有效性的辅助函数 ---
+    # --- 检查选项有效性的辅助函数 ---
     def _is_choice_valid(self, param_key, choice_idx):
-        """
-        预计算并检查给定的选项索引是否会导致一个有效的结果。
-        """
+        if not self.dlight_0: return True
         try:
             lux = self.dlight_0.get_lux()
             ev = math.log2(lux / 2.5) if lux > 0 else -100
-
-            # 获取当前状态的副本
             iso = self.iso_values[self.preview_indices['ISO']]
             aperture = self.aperture_values[self.preview_indices['Aperture']]
             shutter_str = self.shutter_values[self.preview_indices['Shutter']]
 
-            # 用待检查的值替换当前值
             if param_key == 'ISO':
                 iso = self.iso_values[choice_idx]
             elif param_key == 'Aperture':
@@ -83,7 +91,6 @@ class LightMeterApp:
             elif param_key == 'Shutter':
                 shutter_str = self.shutter_values[choice_idx]
 
-            # 执行预计算
             if self.priority_mode == 'A':
                 shutter_float = self._compute_shutter_speed(ev, iso, aperture)
                 return self._shutter_to_float(self.shutter_values[-1]) <= shutter_float <= self._shutter_to_float(
@@ -92,91 +99,91 @@ class LightMeterApp:
                 shutter_float = self._shutter_to_float(shutter_str)
                 aperture_float = self._compute_aperture(ev, iso, shutter_float)
                 return self.aperture_values[0] <= aperture_float <= self.aperture_values[-1]
-
         except (ValueError, ZeroDivisionError, OSError):
-            return False  # 计算错误视为无效
-        return True # 默认有效
+            return False
+        return True
 
     # --- 界面更新与核心逻辑 ---
     def _update_parameter_colors(self):
-        """根据当前焦点更新左侧参数标签颜色"""
+        """根据当前模式，更新左侧标签的颜色以示高亮"""
         self.ui_elements['iso_text_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)
         self.ui_elements['aperture_text_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)
         self.ui_elements['shutter_text_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)
-
         mode_map = {'i': 'iso', 'a': 'aperture', 's': 'shutter'}
         focus_label = self.ui_elements[f"{mode_map[self.current_mode]}_text_label"]
         focus_label.setColor(COLOR_FOCUSED, COLOR_BACKGROUND)
 
-    def _update_parameter_list_display(self):
-        """更新右侧的参数选择列表，并为无效选项标红"""
+    def _draw_parameter_list(self):
+        """在离屏画布上绘制参数列表，并推送到屏幕，实现无闪烁动画"""
+        self.param_list_canvas.fillScreen(COLOR_BACKGROUND)
+        # 关键：右侧列表也使用统一的字体
+        self.param_list_canvas.setFont(Widgets.FONTS.DejaVu18)
+
         mode_map = {'i': 'ISO', 'a': 'Aperture', 's': 'Shutter'}
         param_key = mode_map[self.current_mode]
         values_list = getattr(self, f"{param_key.lower()}_values")
         current_idx = self.preview_indices[param_key]
-
         center_list_idx = PARAMETER_LIST_SIZE // 2
 
-        for i in range(PARAMETER_LIST_SIZE):
-            label = self.ui_elements['param_list_labels'][i]
+        for i in range(-1, PARAMETER_LIST_SIZE + 1):
             data_idx = current_idx + (i - center_list_idx)
-
             if 0 <= data_idx < len(values_list):
                 value = values_list[data_idx]
                 prefix = "f/" if param_key == 'Aperture' else ""
-                label.setText(f"{prefix}{value}")
+                text_to_draw = f"{prefix}{value}"
+                draw_y = int((i * LIST_ITEM_HEIGHT) + self.anim_current_y)
 
-                # --- 核心修改：设置颜色 ---
-                if i == center_list_idx:
-                    label.setColor(COLOR_FOCUSED, COLOR_BACKGROUND)
-                elif self._is_choice_valid(param_key, data_idx):
-                    label.setColor(COLOR_DEFAULT, COLOR_BACKGROUND)
+                distance_from_center = abs(i - center_list_idx)
+                color = COLOR_DEFAULT
+                if not self._is_choice_valid(param_key, data_idx):
+                    color = COLOR_INVALID
                 else:
-                    label.setColor(COLOR_INVALID, COLOR_BACKGROUND)
-            else:
-                label.setText("")
+                    if distance_from_center == 0:
+                        color = COLOR_FOCUSED
+                    elif distance_from_center == 1:
+                        color = COLOR_GRADIENT_1
+                    elif distance_from_center >= 2:
+                        color = COLOR_GRADIENT_2
+
+                self.param_list_canvas.setTextColor(color, COLOR_BACKGROUND)
+                self.param_list_canvas.drawString(text_to_draw, 0, draw_y)
+
+        canvas_pos = self.ui_elements['param_list_canvas_pos']
+        self.param_list_canvas.push(canvas_pos[0], canvas_pos[1])
 
     def _update_and_recalculate(self):
-        """
-        核心函数：根据当前优先模式，使用两个输入参数的预览值，
-        计算第三个参数，并更新整个UI显示。
-        """
-        try:
-            # 总是先更新右侧列表，因为它现在需要显示有效性
-            self._update_parameter_list_display()
+        """根据传感器数据和当前设置，计算并更新左侧的数值显示"""
+        if not self.is_animating:
+            self._draw_parameter_list()
 
+        if not self.dlight_0: return
+        try:
             lux = self.dlight_0.get_lux()
             ev = math.log2(lux / 2.5) if lux > 0 else -100
-
             iso = self.iso_values[self.preview_indices['ISO']]
             aperture = self.aperture_values[self.preview_indices['Aperture']]
             shutter_str = self.shutter_values[self.preview_indices['Shutter']]
 
-            # 重置计算结果的颜色为默认白色
             self.ui_elements['iso_value_label'].setText(str(iso))
-            self.ui_elements['aperture_value_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)
-            self.ui_elements['shutter_value_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)
 
-            if self.priority_mode == 'A':
+            if self.priority_mode == 'A':  # 光圈优先
                 self.ui_elements['aperture_value_label'].setText(f"f/{aperture}")
                 shutter_float = self._compute_shutter_speed(ev, iso, aperture)
                 closest_shutter = min(self.shutter_values, key=lambda s: abs(self._shutter_to_float(s) - shutter_float))
                 self.ui_elements['shutter_value_label'].setText(str(closest_shutter))
-                self.preview_indices['Shutter'] = self.shutter_values.index(closest_shutter)
-
-            elif self.priority_mode == 'S':
+            elif self.priority_mode == 'S':  # 快门优先
                 self.ui_elements['shutter_value_label'].setText(str(shutter_str))
                 shutter_float = self._shutter_to_float(shutter_str)
                 aperture_float = self._compute_aperture(ev, iso, shutter_float)
                 closest_aperture = min(self.aperture_values, key=lambda a: abs(a - aperture_float))
-                self.ui_elements['aperture_value_label'].setText(f"f/{closest_aperture}")
-                self.preview_indices['Aperture'] = self.aperture_values.index(closest_aperture)
+                self.ui_elements['aperture_value_label'].setText(f"f/{closest_aperture:.2f}")
 
         except (ValueError, ZeroDivisionError, OSError) as e:
-            print(e)
+            print(f"Calculation error: {e}")
 
     # --- 事件处理 ---
     def kb_pressed_event(self, kb_event):
+        if self.is_animating: return
         key_str = self.kb.get_string()
 
         if key_str in ['i', 'a', 's']:
@@ -193,83 +200,111 @@ class LightMeterApp:
             param_key = mode_map[self.current_mode]
             current_idx = self.preview_indices[param_key]
             values_list = getattr(self, f"{param_key.lower()}_values")
+            direction = 1 if key_str == UP_KEY_STR else -1
+            next_idx = current_idx + direction
 
-            next_idx = current_idx
-            if key_str == UP_KEY_STR:
-                if current_idx < len(values_list) - 1:
-                    next_idx = current_idx + 1
-            elif key_str == DOWN_KEY_STR:
-                if current_idx > 0:
-                    next_idx = current_idx - 1
-
-            # 只有当目标索引和当前不同，且目标是有效的时候，才移动
-            if next_idx != current_idx and self._is_choice_valid(param_key, next_idx):
+            if 0 <= next_idx < len(values_list) and self._is_choice_valid(param_key, next_idx):
                 self.preview_indices[param_key] = next_idx
+                self.is_animating = True
+                self.anim_start_time = time.ticks_ms()
+                self.anim_start_y = self.anim_current_y
+                self.anim_target_y = self.anim_current_y - (direction * LIST_ITEM_HEIGHT)
                 self._update_and_recalculate()
+
+    # --- 私有初始化方法 ---
+    def _init_hardware(self):
+        """初始化键盘和I2C传感器"""
+        self.kb = MatrixKeyboard()
+        self.kb.set_callback(self.kb_pressed_event)
+        self.i2c0 = I2C(0, scl=Pin(1), sda=Pin(2), freq=100000)
+        try:
+            self.dlight_0 = DLightUnit(self.i2c0)
+            print("DLight Unit initialized successfully.")
+        except OSError as e:
+            self.dlight_0 = None
+            print(f"Failed to initialize DLight Unit: {e}")
+
+    def _init_ui(self):
+        """初始化所有UI元素，包括左侧的Widgets和右侧的Canvas"""
+        Widgets.fillScreen(COLOR_BACKGROUND)
+
+        # --- 关键改动：全局统一使用DejaVu18字体，并精调布局 ---
+        UNIFIED_FONT = Widgets.FONTS.DejaVu18
+
+        # --- 顶部面板 ---
+        self.ui_elements['title'] = Widgets.Title("LightMeter", 3, COLOR_DEFAULT, COLOR_TITLE_BG, UNIFIED_FONT)
+        self.ui_elements['battary_label'] = Widgets.Label("B:", 204, 2, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
+                                                          UNIFIED_FONT)
+
+        # --- 左侧面板 (使用 Widgets) ---
+        # 恢复到DejaVu18字体下最合适的坐标
+        lux_y, iso_y, apert_y, speed_y = 22, 50, 77, 107
+        label_x, value_x = 10, 80
+
+        Widgets.Label("LUX:", label_x, lux_y, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND, UNIFIED_FONT)
+        self.ui_elements['lux_value_label'] = Widgets.Label("N/A", value_x, lux_y, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
+                                                            UNIFIED_FONT)
+
+        self.ui_elements['iso_text_label'] = Widgets.Label("ISO:", label_x, iso_y, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
+                                                           UNIFIED_FONT)
+        self.ui_elements['iso_value_label'] = Widgets.Label("100", value_x, iso_y, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
+                                                            UNIFIED_FONT)
+
+        self.ui_elements['aperture_text_label'] = Widgets.Label("APERT:", label_x, apert_y, 1.0, COLOR_DEFAULT,
+                                                                COLOR_BACKGROUND, UNIFIED_FONT)
+        self.ui_elements['aperture_value_label'] = Widgets.Label("f/2.8", value_x, apert_y, 1.0, COLOR_DEFAULT,
+                                                                 COLOR_BACKGROUND, UNIFIED_FONT)
+
+        self.ui_elements['shutter_text_label'] = Widgets.Label("SPEED:", label_x, speed_y, 1.0, COLOR_DEFAULT,
+                                                               COLOR_BACKGROUND, UNIFIED_FONT)
+        self.ui_elements['shutter_value_label'] = Widgets.Label("1/125", value_x, speed_y, 1.0, COLOR_DEFAULT,
+                                                                COLOR_BACKGROUND, UNIFIED_FONT)
+
+        # --- 右侧面板 (使用 Canvas) ---
+        list_x, list_y = 168, 40
+        list_w, list_h = 72, (PARAMETER_LIST_SIZE * LIST_ITEM_HEIGHT)
+        # 关键：在可靠的内部SRAM中创建画布
+        self.param_list_canvas = Lcd.newCanvas(list_w, list_h, 16, False)
+        self.ui_elements['param_list_canvas_pos'] = (list_x, list_y)
 
     # --- 主流程 ---
     def setup(self):
         M5.begin()
-        Widgets.setBrightness(25)
-        Widgets.fillScreen(COLOR_BACKGROUND)
-
-        # 初始化硬件
-        self.kb = MatrixKeyboard()
-        self.kb.set_callback(self.kb_pressed_event)
-        self.i2c0 = I2C(0, scl=Pin(1), sda=Pin(2), freq=100000)
-        self.dlight_0 = DLightUnit(self.i2c0)
-
-        # 初始化UI并存入字典
-        self.ui_elements['title'] = Widgets.Title("LightMeter", 3, COLOR_DEFAULT, 0x0000FF, Widgets.FONTS.DejaVu18)
-        self.ui_elements['battary_label'] = Widgets.Label("B:", 204, 2, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
-                                                          Widgets.FONTS.DejaVu18)
-        self.ui_elements['lux_value_label'] = Widgets.Label("LUX", 80, 21, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
-                                                            Widgets.FONTS.DejaVu18)
-        self.ui_elements['iso_value_label'] = Widgets.Label("ISO", 80, 52, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
-                                                            Widgets.FONTS.DejaVu18)
-        self.ui_elements['aperture_value_label'] = Widgets.Label("A", 80, 78, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
-                                                                 Widgets.FONTS.DejaVu18)
-        self.ui_elements['shutter_value_label'] = Widgets.Label("S", 80, 106, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
-                                                                Widgets.FONTS.DejaVu18)
-
-        label_x_pos = 10
-        self.ui_elements['iso_text_label'] = Widgets.Label("ISO:", label_x_pos, 50, 1.0, COLOR_DEFAULT,
-                                                           COLOR_BACKGROUND,
-                                                           Widgets.FONTS.DejaVu18)
-        self.ui_elements['aperture_text_label'] = Widgets.Label("APERT:", label_x_pos, 77, 1.0, COLOR_DEFAULT,
-                                                                COLOR_BACKGROUND,
-                                                                Widgets.FONTS.DejaVu18)
-        self.ui_elements['shutter_text_label'] = Widgets.Label("SPEED:", label_x_pos, 107, 1.0, COLOR_DEFAULT,
-                                                               COLOR_BACKGROUND,
-                                                               Widgets.FONTS.DejaVu18)
-
-        Widgets.Label("LUX:", 12, 22, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND, Widgets.FONTS.DejaVu18)
-
-        # 创建右侧的参数选择列表
-        self.ui_elements['param_list_labels'] = []
-        for i in range(PARAMETER_LIST_SIZE):
-            y_pos = 40 + i * 20
-            label = Widgets.Label("", 168, y_pos, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND, Widgets.FONTS.DejaVu18)
-            self.ui_elements['param_list_labels'].append(label)
-
-        # 设置初始状态并进行第一次计算
+        Lcd.setBrightness(25)
+        self._init_hardware()
+        self._init_ui()
         self._update_parameter_colors()
         self._update_and_recalculate()
 
     def loop(self):
-        M5.update()
+        M5.update()  # 必须保留，它驱动Widgets和系统事件
         self.kb.tick()
 
-        self.ui_elements['battary_label'].setText(str(Power.getBatteryLevel()))
-        if self.dlight_0:
-            try:
-                current_lux = self.dlight_0.get_lux()
-                if int(current_lux) != int(self.last_lux_value):
-                    self.last_lux_value = current_lux
-                    self.ui_elements['lux_value_label'].setText(str(int(self.last_lux_value)))
-                    self._update_and_recalculate()
-            except OSError:
-                pass
+        if self.is_animating:
+            elapsed = time.ticks_diff(time.ticks_ms(), self.anim_start_time)
+            if elapsed >= self.anim_duration:
+                self.is_animating = False
+                self.anim_current_y = 0
+                self.anim_start_y = 0
+                self.anim_target_y = 0
+                self._update_and_recalculate()
+            else:
+                progress = elapsed / self.anim_duration
+                self.anim_current_y = self.anim_start_y + (self.anim_target_y - self.anim_start_y) * progress
+                self._draw_parameter_list()
+        else:
+            # 非动画状态下的常规更新
+            self.ui_elements['battary_label'].setText(str(Power.getBatteryLevel()))
+            if self.dlight_0:
+                try:
+                    current_lux = self.dlight_0.get_lux()
+                    # 增加一个小的阈值避免过于频繁的更新
+                    if abs(current_lux - self.last_lux_value) > 1:
+                        self.last_lux_value = current_lux
+                        self.ui_elements['lux_value_label'].setText(str(int(self.last_lux_value)))
+                        self._update_and_recalculate()
+                except OSError:
+                    self.ui_elements['lux_value_label'].setText("Error")
 
         time.sleep_ms(20)
 
