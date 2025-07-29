@@ -40,7 +40,7 @@ class LightMeterApp:
 
         # --- 预设值 ---
         self.iso_values = [50, 100, 200, 400, 800, 1000, 1200, 1600, 3200, 6400]
-        self.aperture_values = [0.95, 1.0, 1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 11.0, 16.0, 22.0]
+        self.aperture_values = [0.95, 1.0, 1.2, 1.4, 1.8, 2.0, 2.2, 2.8, 4, 5.6, 8, 11, 16, 22]
         self.shutter_values = ["30s", "15s", "8s", "4s", "2s", "1s", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60",
                                "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"]
 
@@ -119,7 +119,7 @@ class LightMeterApp:
     def _draw_parameter_list(self):
         """在离屏画布上绘制参数列表，并推送到屏幕，实现无闪烁动画"""
         self.param_list_canvas.fillScreen(COLOR_BACKGROUND)
-        self.param_list_canvas.setFont(Widgets.FONTS.DejaVu18)
+        self.param_list_canvas.setFont(Widgets.FONTS.DejaVu24)
 
         mode_map = {'i': 'ISO', 'a': 'Aperture', 's': 'Shutter'}
         param_key = mode_map[self.current_mode]
@@ -268,18 +268,18 @@ class LightMeterApp:
         """初始化所有UI元素，包括左侧的Widgets和右侧的Canvas"""
         Widgets.fillScreen(COLOR_BACKGROUND)
 
-        # --- 全局统一使用DejaVu18字体，并精调布局 ---
-        UNIFIED_FONT = Widgets.FONTS.DejaVu18
+        # --- 全局统一使用DejaVu24字体，并精调布局 ---字体大小支持12/18/24/40/56/72
+        UNIFIED_FONT = Widgets.FONTS.DejaVu24
 
         # --- 顶部面板 ---
         self.ui_elements['title'] = Widgets.Title("LightMeter", 3, COLOR_DEFAULT, COLOR_TITLE_BG, UNIFIED_FONT)
-        self.ui_elements['battary_label'] = Widgets.Label("B:", 204, 2, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
+        self.ui_elements['battary_label'] = Widgets.Label("B:", 188, 1, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
                                                           UNIFIED_FONT)
 
         # --- 左侧面板 (使用 Widgets) ---
-        # DejaVu18字体下最合适的坐标
-        lux_y, iso_y, apert_y, speed_y = 22, 50, 77, 107
-        label_x, value_x = 10, 80
+        # DejaVu24字体下最合适的坐标
+        lux_y, iso_y, apert_y, speed_y = 26, 54, 80, 110
+        label_x, value_x = 10, 108
 
         Widgets.Label("LUX:", label_x, lux_y, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND, UNIFIED_FONT)
         self.ui_elements['lux_value_label'] = Widgets.Label("N/A", value_x, lux_y, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
@@ -301,7 +301,7 @@ class LightMeterApp:
                                                                 COLOR_BACKGROUND, UNIFIED_FONT)
 
         # --- 右侧面板 (使用 Canvas) ---
-        list_x, list_y = 168, 40
+        list_x, list_y = 176, 40
         list_w, list_h = 72, (PARAMETER_LIST_SIZE * LIST_ITEM_HEIGHT)
         # 关键：在可靠的内部SRAM中创建画布
         self.param_list_canvas = Lcd.newCanvas(list_w, list_h, 16, False)

@@ -10,8 +10,8 @@
 
 A feature-rich photography light meter application for the M5Stack Cardputer, developed in MicroPython. It provides both Aperture Priority and Shutter Priority modes with a responsive and intuitive user interface.
 
-![App Screenshot](20250722_163746.jpg) 
-![App Screenshot](20250722_162342.webp) 
+![App Screenshot](20250729_152225.jpg) 
+![App Screenshot](20250729_154934.webp) 
 <!-- TODO: Replace this with your own app screenshot -->
 
 ### Hardware Requirements
@@ -48,7 +48,7 @@ A feature-rich photography light meter application for the M5Stack Cardputer, de
 
 This project is developed for deployment using **UIFlow2.0**.
 
-1.  **Burn Firmware**: First, use **M5Burner** to burn the latest UIFlow2.0 firmware onto your Cardputer.
+1.  **Burn Firmware**: First, use **M5Burner** to burn the latest UIFlow2.0 firmware onto your Cardputer.(I recommend flashing the[M5Launcher Cardputer](https://github.com/bmorcelli/Launcher)firmware and then installing UIFlow2.bin from the SD card. This way, your Cardputer can still run other firmwares)
 2.  **Connect Device**: Press and hold the **G0** button while connecting your Cardputer to your computer via a USB-C cable to enter download mode.
 3.  **Open UIFlow2.0**: Launch the UIFlow2.0 IDE (either the web version at [uiflow2.m5stack.com](https://uiflow2.m5stack.com/)).
 4.  **Select Device**: In the IDE, select "Cardputer" as your device and establish a connection via the correct COM port.
@@ -56,9 +56,10 @@ This project is developed for deployment using **UIFlow2.0**.
     *   Download the `cardputer_LightMeter.m5f2` project file from this repository to your computer.
     *   In the UIFlow2.0 IDE, click on the "Open..." menu option (the folder icon).
     *   Select the downloaded `cardputer_LightMeter.m5f2` file to import the entire project.
-6.  **Deploy**: Click the **Run** button (the icon with a "play" triangle) to automatically download and execute the program on your Cardputer.
+6.  **Deploy**: Click the **Download the program to device** button to automatically download and execute the program on your Cardputer.
     
-![App Screenshot](UIFlow2.jpg)
+![App Screenshot](UIFlow2-1.jpg)
+![App Screenshot](UIFlow2-2.jpg)
 ---
 
 <a name="中文"></a>
@@ -67,8 +68,8 @@ This project is developed for deployment using **UIFlow2.0**.
 
 这是一款为 M5Stack Cardputer 打造的功能完善的摄影测光表应用，使用 MicroPython 开发。它提供了光圈优先和快门优先两种核心测光模式，并拥有一个响应迅速、交互直观的用户界面。
 
-![应用截图](20250722_163746.jpg)
-![应用截图](20250722_162342.webp)
+![应用截图](20250729_152225.jpg)
+![应用截图](20250729_154934.webp)
 
 ### 硬件需求
 
@@ -104,7 +105,7 @@ This project is developed for deployment using **UIFlow2.0**.
 
 本项目使用 **UIFlow2.0** 进行开发和部署。
 
-1.  **烧录固件**: 首先，使用 **M5Burner** 工具为您的 Cardputer 烧录最新的 UIFlow2.0 固件。
+1.  **烧录固件**: 首先，使用 **M5Burner** 工具为您的 Cardputer 烧录最新的 UIFlow2.0 固件。（我推荐烧录[M5Launcher Cardputer](https://github.com/bmorcelli/Launcher)固件，再从SD卡安装UIFlow2.bin，这样您的cardputer就仍然能运行其他固件）
 2.  **连接设备**: 按住 **G0** 键的同时，使用 USB-C 数据线将您的 Cardputer 连接到电脑，使其进入下载模式。
 3.  **打开 UIFlow2.0**: 启动 UIFlow2.0 IDE (可以是网页版 [uiflow2.m5stack.com](https://uiflow2.m5stack.com/))。
 4.  **选择设备**: 在 IDE 中，选择 "Cardputer" 作为您的设备，并通过正确的 COM 端口建立连接。
@@ -112,5 +113,6 @@ This project is developed for deployment using **UIFlow2.0**.
     *   从本代码库下载 `cardputer_LightMeter.m5f2` 项目文件到您的电脑。
     *   在 UIFlow2.0 IDE 中，点击“打开...”菜单选项（文件夹图标）。
     *   选择已下载的 `cardputer_LightMeter.m5f2` 文件以导入整个项目。
-6.  **部署**: 点击 **运行** 按钮 (图标为“播放”三角形)，程序将会自动下载并到您的 Cardputer 上执行。
-![应用截图](UIFlow2.jpg)
+6.  **部署**: 点击 **下载到设备** 按钮，程序将会自动下载并到您的 Cardputer 上执行。
+![应用截图](UIFlow2-1.jpg)
+![应用截图](UIFlow2-2.jpg)
