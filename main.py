@@ -76,29 +76,32 @@ class LightMeterApp:
 
     # --- 检查选项有效性的辅助函数 ---
     def _is_choice_valid(self, param_key, choice_idx):
+        # ISO值永远不会被标记为无效
+        if param_key == 'ISO':
+            return True
+
         if not self.dlight_0: return True
         try:
             lux = self.dlight_0.get_lux()
             ev = math.log2(lux / 2.5) if lux > 0 else -100
+
+            # 获取基础参数用于计算
             iso = self.iso_values[self.preview_indices['ISO']]
-            aperture = self.aperture_values[self.preview_indices['Aperture']]
-            shutter_str = self.shutter_values[self.preview_indices['Shutter']]
 
-            if param_key == 'ISO':
-                iso = self.iso_values[choice_idx]
-            elif param_key == 'Aperture':
-                aperture = self.aperture_values[choice_idx]
+            # 在光圈优先模式下，我们正在测试一个光圈选项
+            if param_key == 'Aperture':
+                aperture_to_test = self.aperture_values[choice_idx]
+                shutter_float_result = self._compute_shutter_speed(ev, iso, aperture_to_test)
+                return self._shutter_to_float(
+                    self.shutter_values[-1]) <= shutter_float_result <= self._shutter_to_float(self.shutter_values[0])
+
+            # 在快门优先模式下，我们正在测试一个快门选项
             elif param_key == 'Shutter':
-                shutter_str = self.shutter_values[choice_idx]
+                shutter_to_test_str = self.shutter_values[choice_idx]
+                shutter_float_to_test = self._shutter_to_float(shutter_to_test_str)
+                aperture_float_result = self._compute_aperture(ev, iso, shutter_float_to_test)
+                return self.aperture_values[0] <= aperture_float_result <= self.aperture_values[-1]
 
-            if self.priority_mode == 'A':
-                shutter_float = self._compute_shutter_speed(ev, iso, aperture)
-                return self._shutter_to_float(self.shutter_values[-1]) <= shutter_float <= self._shutter_to_float(
-                    self.shutter_values[0])
-            elif self.priority_mode == 'S':
-                shutter_float = self._shutter_to_float(shutter_str)
-                aperture_float = self._compute_aperture(ev, iso, shutter_float)
-                return self.aperture_values[0] <= aperture_float <= self.aperture_values[-1]
         except (ValueError, ZeroDivisionError, OSError):
             return False
         return True
@@ -116,7 +119,6 @@ class LightMeterApp:
     def _draw_parameter_list(self):
         """在离屏画布上绘制参数列表，并推送到屏幕，实现无闪烁动画"""
         self.param_list_canvas.fillScreen(COLOR_BACKGROUND)
-        # 关键：右侧列表也使用统一的字体
         self.param_list_canvas.setFont(Widgets.FONTS.DejaVu18)
 
         mode_map = {'i': 'ISO', 'a': 'Aperture', 's': 'Shutter'}
@@ -164,18 +166,55 @@ class LightMeterApp:
             aperture = self.aperture_values[self.preview_indices['Aperture']]
             shutter_str = self.shutter_values[self.preview_indices['Shutter']]
 
+            # 更新ISO值，永远是默认颜色
             self.ui_elements['iso_value_label'].setText(str(iso))
+            self.ui_elements['iso_value_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)
+
+            # 重置光圈和快门标签颜色为默认
+            self.ui_elements['aperture_value_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)
+            self.ui_elements['shutter_value_label'].setColor(COLOR_DEFAULT, COLOR_BACKGROUND)
 
             if self.priority_mode == 'A':  # 光圈优先
                 self.ui_elements['aperture_value_label'].setText(f"f/{aperture}")
-                shutter_float = self._compute_shutter_speed(ev, iso, aperture)
-                closest_shutter = min(self.shutter_values, key=lambda s: abs(self._shutter_to_float(s) - shutter_float))
+
+                shutter_float_theoretical = self._compute_shutter_speed(ev, iso, aperture)
+
+                min_shutter_val = self._shutter_to_float(self.shutter_values[-1])
+                max_shutter_val = self._shutter_to_float(self.shutter_values[0])
+
+                is_out_of_bounds = shutter_float_theoretical < min_shutter_val or shutter_float_theoretical > max_shutter_val
+
+                if is_out_of_bounds:
+                    # 如果超出范围，强制显示边界值并标红
+                    closest_shutter = self.shutter_values[-1] if shutter_float_theoretical < min_shutter_val else \
+                    self.shutter_values[0]
+                    self.ui_elements['shutter_value_label'].setColor(COLOR_INVALID, COLOR_BACKGROUND)
+                else:
+                    # 如果在范围内，找到最接近的可用值
+                    closest_shutter = min(self.shutter_values,
+                                          key=lambda s: abs(self._shutter_to_float(s) - shutter_float_theoretical))
+
                 self.ui_elements['shutter_value_label'].setText(str(closest_shutter))
+
             elif self.priority_mode == 'S':  # 快门优先
                 self.ui_elements['shutter_value_label'].setText(str(shutter_str))
+
                 shutter_float = self._shutter_to_float(shutter_str)
-                aperture_float = self._compute_aperture(ev, iso, shutter_float)
-                closest_aperture = min(self.aperture_values, key=lambda a: abs(a - aperture_float))
+                aperture_float_theoretical = self._compute_aperture(ev, iso, shutter_float)
+
+                min_aperture_val = self.aperture_values[0]
+                max_aperture_val = self.aperture_values[-1]
+
+                is_out_of_bounds = aperture_float_theoretical < min_aperture_val or aperture_float_theoretical > max_aperture_val
+
+                if is_out_of_bounds:
+                    # 如果超出范围，强制显示边界值并标红
+                    closest_aperture = min_aperture_val if aperture_float_theoretical < min_aperture_val else max_aperture_val
+                    self.ui_elements['aperture_value_label'].setColor(COLOR_INVALID, COLOR_BACKGROUND)
+                else:
+                    # 如果在范围内，找到最接近的可用值
+                    closest_aperture = min(self.aperture_values, key=lambda a: abs(a - aperture_float_theoretical))
+
                 self.ui_elements['aperture_value_label'].setText(f"f/{closest_aperture:.2f}")
 
         except (ValueError, ZeroDivisionError, OSError) as e:
@@ -203,7 +242,8 @@ class LightMeterApp:
             direction = 1 if key_str == UP_KEY_STR else -1
             next_idx = current_idx + direction
 
-            if 0 <= next_idx < len(values_list) and self._is_choice_valid(param_key, next_idx):
+            # 关键：不再检查_is_choice_valid来限制选择，用户永远可以滚动
+            if 0 <= next_idx < len(values_list):
                 self.preview_indices[param_key] = next_idx
                 self.is_animating = True
                 self.anim_start_time = time.ticks_ms()
@@ -228,7 +268,7 @@ class LightMeterApp:
         """初始化所有UI元素，包括左侧的Widgets和右侧的Canvas"""
         Widgets.fillScreen(COLOR_BACKGROUND)
 
-        # --- 关键改动：全局统一使用DejaVu18字体，并精调布局 ---
+        # --- 全局统一使用DejaVu18字体，并精调布局 ---
         UNIFIED_FONT = Widgets.FONTS.DejaVu18
 
         # --- 顶部面板 ---
@@ -237,7 +277,7 @@ class LightMeterApp:
                                                           UNIFIED_FONT)
 
         # --- 左侧面板 (使用 Widgets) ---
-        # 恢复到DejaVu18字体下最合适的坐标
+        # DejaVu18字体下最合适的坐标
         lux_y, iso_y, apert_y, speed_y = 22, 50, 77, 107
         label_x, value_x = 10, 80
 
