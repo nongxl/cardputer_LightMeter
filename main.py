@@ -12,11 +12,14 @@ DOWN_KEY_STR = ';'
 # --- 优化后的颜色方案 ---
 COLOR_DEFAULT = 0xffffff  # 白色
 COLOR_FOCUSED = 0x33ff33  # 绿色 (焦点)
-COLOR_INVALID = 0xff0000  # 红色 (无效选项)
+COLOR_INVALID = 0xff0000  # 红色 (无效选项 - 焦点)
 COLOR_BACKGROUND = 0x000000  # 黑色
 COLOR_TITLE_BG = 0x0000FF  # 标题背景色
 COLOR_GRADIENT_1 = 0xCCCCCC  # 渐变色1 (亮灰色)
 COLOR_GRADIENT_2 = 0x555555  # 渐变色2 (暗灰色)
+# [新增] 无效选项的渐变色
+COLOR_INVALID_GRADIENT_1 = 0xCC3333  # 无效渐变1 (暗红色)
+COLOR_INVALID_GRADIENT_2 = 0x883333  # 无效渐变2 (更暗的红色)
 
 PARAMETER_LIST_SIZE = 5  # 参数选择列表显示的行数，必须为奇数
 LIST_ITEM_HEIGHT = 20  # 列表项的高度
@@ -119,7 +122,9 @@ class LightMeterApp:
     def _draw_parameter_list(self):
         """在离屏画布上绘制参数列表，并推送到屏幕，实现无闪烁动画"""
         self.param_list_canvas.fillScreen(COLOR_BACKGROUND)
-        self.param_list_canvas.setFont(Widgets.FONTS.DejaVu24)
+        self.param_list_canvas.setFont(Widgets.FONTS.DejaVu18)
+
+        font_h = 18
 
         mode_map = {'i': 'ISO', 'a': 'Aperture', 's': 'Shutter'}
         param_key = mode_map[self.current_mode]
@@ -135,20 +140,58 @@ class LightMeterApp:
                 text_to_draw = f"{prefix}{value}"
                 draw_y = int((i * LIST_ITEM_HEIGHT) + self.anim_current_y)
 
-                distance_from_center = abs(i - center_list_idx)
-                color = COLOR_DEFAULT
-                if not self._is_choice_valid(param_key, data_idx):
-                    color = COLOR_INVALID
-                else:
-                    if distance_from_center == 0:
-                        color = COLOR_FOCUSED
-                    elif distance_from_center == 1:
-                        color = COLOR_GRADIENT_1
-                    elif distance_from_center >= 2:
-                        color = COLOR_GRADIENT_2
+                text_w = self.param_list_canvas.textWidth(text_to_draw)
+                canvas_w = self.param_list_canvas.width()
+                text_x = (canvas_w - text_w) // 2
+                text_y_offset = (LIST_ITEM_HEIGHT - font_h) // 2
+                centered_text_y = draw_y + text_y_offset
 
-                self.param_list_canvas.setTextColor(color, COLOR_BACKGROUND)
-                self.param_list_canvas.drawString(text_to_draw, 0, draw_y)
+                distance_from_center = abs(i - center_list_idx)
+
+                # --- [核心逻辑重构] ---
+                # 1. 决定使用哪个颜色渐变方案
+                is_valid = self._is_choice_valid(param_key, data_idx)
+
+                if is_valid:
+                    # 对于有效选项，使用绿色/灰色渐变
+                    if distance_from_center == 0:
+                        text_color = COLOR_FOCUSED
+                    elif distance_from_center == 1:
+                        text_color = COLOR_GRADIENT_1
+                    else:  # distance >= 2
+                        text_color = COLOR_GRADIENT_2
+                else:
+                    # 对于无效选项，使用新的红色渐变
+                    if distance_from_center == 0:
+                        text_color = COLOR_INVALID
+                    elif distance_from_center == 1:
+                        text_color = COLOR_INVALID_GRADIENT_1
+                    else:  # distance >= 2
+                        text_color = COLOR_INVALID_GRADIENT_2
+
+                # 2. 独立判断是否绘制外框 (只要是中间项就绘制)
+                if distance_from_center == 0:
+                    box_color = COLOR_FOCUSED
+                    box_padding_x = 6
+                    box_padding_y = 2
+                    thickness = 2
+
+                    box_x = text_x - box_padding_x
+                    box_y = centered_text_y - box_padding_y
+                    box_w = text_w + (2 * box_padding_x)
+                    box_h = font_h + (2 * box_padding_y)
+
+                    for t in range(thickness):
+                        top_y = box_y + t
+                        bottom_y = box_y + box_h - 1 - t
+                        if top_y >= bottom_y and t > 0:
+                            break
+                        self.param_list_canvas.drawLine(box_x, top_y, box_x + box_w, top_y, box_color)
+                        self.param_list_canvas.drawLine(box_x, bottom_y, box_x + box_w, bottom_y, box_color)
+
+                # 3. 最后，使用计算出的颜色绘制文本
+                self.param_list_canvas.setTextColor(text_color, COLOR_BACKGROUND)
+                self.param_list_canvas.drawString(text_to_draw, text_x, centered_text_y)
 
         canvas_pos = self.ui_elements['param_list_canvas_pos']
         self.param_list_canvas.push(canvas_pos[0], canvas_pos[1])
@@ -215,7 +258,7 @@ class LightMeterApp:
                     # 如果在范围内，找到最接近的可用值
                     closest_aperture = min(self.aperture_values, key=lambda a: abs(a - aperture_float_theoretical))
 
-                self.ui_elements['aperture_value_label'].setText(f"f/{closest_aperture:.2f}")
+                self.ui_elements['aperture_value_label'].setText(f"f/{closest_aperture:g}")
 
         except (ValueError, ZeroDivisionError, OSError) as e:
             print(f"Calculation error: {e}")
@@ -278,8 +321,8 @@ class LightMeterApp:
 
         # --- 左侧面板 (使用 Widgets) ---
         # DejaVu24字体下最合适的坐标
-        lux_y, iso_y, apert_y, speed_y = 26, 54, 80, 110
-        label_x, value_x = 10, 108
+        lux_y, iso_y, apert_y, speed_y = 28, 54, 82, 110
+        label_x, value_x = 8, 82
 
         Widgets.Label("LUX:", label_x, lux_y, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND, UNIFIED_FONT)
         self.ui_elements['lux_value_label'] = Widgets.Label("N/A", value_x, lux_y, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
@@ -290,18 +333,18 @@ class LightMeterApp:
         self.ui_elements['iso_value_label'] = Widgets.Label("100", value_x, iso_y, 1.0, COLOR_DEFAULT, COLOR_BACKGROUND,
                                                             UNIFIED_FONT)
 
-        self.ui_elements['aperture_text_label'] = Widgets.Label("APERT:", label_x, apert_y, 1.0, COLOR_DEFAULT,
+        self.ui_elements['aperture_text_label'] = Widgets.Label("APER:", label_x, apert_y, 1.0, COLOR_DEFAULT,
                                                                 COLOR_BACKGROUND, UNIFIED_FONT)
         self.ui_elements['aperture_value_label'] = Widgets.Label("f/2.8", value_x, apert_y, 1.0, COLOR_DEFAULT,
                                                                  COLOR_BACKGROUND, UNIFIED_FONT)
 
-        self.ui_elements['shutter_text_label'] = Widgets.Label("SPEED:", label_x, speed_y, 1.0, COLOR_DEFAULT,
+        self.ui_elements['shutter_text_label'] = Widgets.Label("SSPD:", label_x, speed_y, 1.0, COLOR_DEFAULT,
                                                                COLOR_BACKGROUND, UNIFIED_FONT)
         self.ui_elements['shutter_value_label'] = Widgets.Label("1/125", value_x, speed_y, 1.0, COLOR_DEFAULT,
                                                                 COLOR_BACKGROUND, UNIFIED_FONT)
 
         # --- 右侧面板 (使用 Canvas) ---
-        list_x, list_y = 176, 40
+        list_x, list_y = 172, 40
         list_w, list_h = 72, (PARAMETER_LIST_SIZE * LIST_ITEM_HEIGHT)
         # 关键：在可靠的内部SRAM中创建画布
         self.param_list_canvas = Lcd.newCanvas(list_w, list_h, 16, False)

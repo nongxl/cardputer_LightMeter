@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5cdf172-0716-46b8-8512-64a9e26ff362" name="更改" comment="修复光圈判断的边界问题">
-      <change beforePath="$PROJECT_DIR$/20250722_163746.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UIFlow2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cardputer_LightMeter.m5f2" beforeDir="false" afterPath="$PROJECT_DIR$/cardputer_LightMeter.m5f2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="a5cdf172-0716-46b8-8512-64a9e26ff362" name="更改" comment="优化UI显示" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -150,7 +144,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753761832167</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="优化显示，更新描述">
+      <option name="closed" value="true" />
+      <created>1753776357176</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1753776357176</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -172,6 +174,7 @@
     <MESSAGE value="提供UIFlow2项目文件" />
     <MESSAGE value="加入动画使显示流畅" />
     <MESSAGE value="修复光圈判断的边界问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复光圈判断的边界问题" />
+    <MESSAGE value="优化显示，更新描述" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化显示，更新描述" />
   </component>
 </project>
