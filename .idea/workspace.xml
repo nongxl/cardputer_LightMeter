@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5cdf172-0716-46b8-8512-64a9e26ff362" name="更改" comment="修正曝光算法">
+    <list default="true" id="a5cdf172-0716-46b8-8512-64a9e26ff362" name="更改" comment="修正曝光算法，优化界面刷新方式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cardputer_LightMeter.m5f2" beforeDir="false" afterPath="$PROJECT_DIR$/cardputer_LightMeter.m5f2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -205,6 +205,7 @@
     <MESSAGE value="优化显示，更新描述" />
     <MESSAGE value="优化UI" />
     <MESSAGE value="修正曝光算法" />
-    <option name="LAST_COMMIT_MESSAGE" value="修正曝光算法" />
+    <MESSAGE value="修正曝光算法，优化界面刷新方式" />
+    <option name="LAST_COMMIT_MESSAGE" value="修正曝光算法，优化界面刷新方式" />
   </component>
 </project>
