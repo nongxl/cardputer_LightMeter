@@ -66,14 +66,14 @@ class LightMeterApp:
         else:
             return float(clean_str)
 
-    # --- 计算逻辑 ---
     def _compute_aperture(self, ev, iso, shutter_speed):
-        ev_corrected = ev - math.log2(iso / 100)
+        ev_corrected = ev + math.log2(iso / 100)
         f_number_sq = (2 ** ev_corrected) * shutter_speed
         return math.sqrt(f_number_sq) if f_number_sq > 0 else 0
 
+
     def _compute_shutter_speed(self, ev, iso, aperture):
-        ev_corrected = ev - math.log2(iso / 100)
+        ev_corrected = ev + math.log2(iso / 100)
         denominator = (2 ** ev_corrected)
         return (aperture ** 2) / denominator if denominator != 0 else 0
 
@@ -91,14 +91,12 @@ class LightMeterApp:
             # 获取基础参数用于计算
             iso = self.iso_values[self.preview_indices['ISO']]
 
-            # 在光圈优先模式下，我们正在测试一个光圈选项
             if param_key == 'Aperture':
                 aperture_to_test = self.aperture_values[choice_idx]
                 shutter_float_result = self._compute_shutter_speed(ev, iso, aperture_to_test)
                 return self._shutter_to_float(
                     self.shutter_values[-1]) <= shutter_float_result <= self._shutter_to_float(self.shutter_values[0])
 
-            # 在快门优先模式下，我们正在测试一个快门选项
             elif param_key == 'Shutter':
                 shutter_to_test_str = self.shutter_values[choice_idx]
                 shutter_float_to_test = self._shutter_to_float(shutter_to_test_str)
