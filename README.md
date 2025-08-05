@@ -57,7 +57,8 @@ This project is developed for deployment using **UIFlow2.0**.
     *   In the UIFlow2.0 IDE, click on the "Open..." menu option (the folder icon).
     *   Select the downloaded `cardputer_LightMeter.m5f2` file to import the entire project.
 6.  **Deploy**: Click the **Download the program to device** button to automatically download and execute the program on your Cardputer.
-    
+> **A Note on `.bin` Firmware:**
+> I am currently unable to export the firmware as a `.bin` file. I have tried compiling the code by embedding it into an official M5Stack UIFlow2.0 project and a standard MicroPython project, and have also attempted to use the export feature in M5Burner, but none of these methods have been successful. This may be due to an issue with my development environment that I am currently unable to resolve. If anyone is able to build a `.bin` firmware for this project, I would be very grateful if you could share it. Thank you.    
 ![App Screenshot](UIFlow2-1.jpg)
 ![App Screenshot](UIFlow2-2.jpg)
 ---
@@ -114,5 +115,7 @@ This project is developed for deployment using **UIFlow2.0**.
     *   在 UIFlow2.0 IDE 中，点击“打开...”菜单选项（文件夹图标）。
     *   选择已下载的 `cardputer_LightMeter.m5f2` 文件以导入整个项目。
 6.  **部署**: 点击 **下载到设备** 按钮，程序将会自动下载并到您的 Cardputer 上执行。
+> **关于 `.bin` 固件的说明：**
+> 我不知道如何把固件导出成.bin文件，我试过将代码固化到M5Stack官方的UIFlow2.0项目中或者micropython项目中进行编译，也试过M5burner的导出功能均不能实现，可能是我开发环境的原因我暂时无法解决。如果谁可以制作这个项目的.bin固件，请也发给我一份，谢谢。
 ![应用截图](UIFlow2-1.jpg)
 ![应用截图](UIFlow2-2.jpg)
