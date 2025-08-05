@@ -8,7 +8,7 @@
 
 ## 📷 Cardputer Photography Light Meter (English)
 
-A feature-rich photography light meter application for the M5Stack Cardputer, developed in MicroPython. It provides both Aperture Priority and Shutter Priority modes with a responsive and intuitive user interface.
+A feature-rich photography light meter application for the M5Stack Cardputer, developed in MicroPython. It provides both APERure Priority and Shutter Priority modes with a responsive and intuitive user interface.
 
 ![App Screenshot](20250805_144436.jpg) 
 ![App Screenshot](20250729_154934.webp) 
@@ -21,14 +21,14 @@ A feature-rich photography light meter application for the M5Stack Cardputer, de
 
 ### Features
 
--   **Dual-Mode Metering**: Supports Aperture Priority (`A`) and Shutter Priority (`S`) modes to suit different shooting scenarios.
--   **Real-Time Calculation**: After adjusting any exposure parameter (ISO, Aperture, Shutter), the third parameter is calculated and updated instantly without any confirmation needed.
+-   **Dual-Mode Metering**: Supports APERure Priority (`A`) and Shutter Priority (`S`) modes to suit different shooting scenarios.
+-   **Real-Time Calculation**: After adjusting any exposure parameter (ISO, APERure, Shutter), the third parameter is calculated and updated instantly without any confirmation needed.
 -   **Intuitive UI**:
-    *   The left side clearly displays the final exposure combination of ISO, Aperture (`APERT`), and Shutter Speed (`SPEED`).
+    *   The left side clearly displays the final exposure combination of ISO, APERure (`APER`), and Shutter Speed (`SSPD`).
     *   The right side features a vertical selection list for the currently adjustable parameter, providing clear context.
     *   The currently focused parameter and the selected value in the list are highlighted in **green** for clear operational focus.
 -   **Smart Boundary Detection**:
-    *   When an option in the selection list would cause the calculated result to exceed the preset range (e.g., a shutter speed faster than 1/4000s), that option is marked in **red**.
+    *   When an option in the selection list would cause the calculated result to exceed the preset range (e.g., a shutter Speed faster than 1/4000s), that option is marked in **red**.
     *   The application **prevents** the user from selecting red-marked invalid options, ensuring operations stay within a valid exposure range.
 -   **Non-Circular Selection**: The parameter list stops scrolling when it reaches the maximum or minimum value, which is more precise and aligns with professional habits.
 -   **Hardware Info**: Displays the real-time LUX value from the DLight sensor and the device's battery level.
@@ -38,8 +38,8 @@ A feature-rich photography light meter application for the M5Stack Cardputer, de
 #### Key Controls
 
 -   **`i` / `a` / `s` keys**: Switch operational focus and metering mode.
-    -   **`a` key**: Sets to **Aperture Priority** mode and moves focus to Aperture (`APERT`).
-    -   **`s` key**: Sets to **Shutter Priority** mode and moves focus to Shutter Speed (`SPEED`).
+    -   **`a` key**: Sets to **APERure Priority** mode and moves focus to APERure (`APER`).
+    -   **`s` key**: Sets to **Shutter Priority** mode and moves focus to Shutter Speed (`SSPD`).
     -   **`i` key**: Moves focus to ISO. This action **does not** change the current metering mode (A/S).
 -   **`.` key (Up Arrow)**: Scrolls up and selects a value for the focused parameter.
 -   **`;` key (Down Arrow)**: Scrolls down and selects a value for the focused parameter.
@@ -81,7 +81,7 @@ This project is developed for deployment using **UIFlow2.0**.
 -   **双模式测光**: 支持光圈优先 (`A`) 和快门优先 (`S`) 模式，满足不同拍摄场景的需求。
 -   **实时计算**: 调整任何曝光参数（ISO、光圈、快门）后，程序会立即计算出第三个参数的值，无需等待或确认。
 -   **直观的用户界面**:
-    *   左侧清晰显示 ISO、光圈 (`APERT`) 和快门速度 (`SPEED`) 的最终曝光组合。
+    *   左侧清晰显示 ISO、光圈 (`APER`) 和快门速度 (`SSPD`) 的最终曝光组合。
     *   右侧为当前可调参数的纵向选择列表，提供清晰的上下文。
     *   当前拥有输入焦点的参数和在列表中选中的值，均以**绿色**高亮显示，操作目标明确。
 -   **智能边界检测**:
@@ -95,8 +95,8 @@ This project is developed for deployment using **UIFlow2.0**.
 #### 按键控制
 
 -   **`i` / `a` / `s` 键**: 切换操作焦点和测光模式。
-    -   **`a` 键**: 设定为 **光圈优先** 模式，并将操作焦点切换到光圈 (`APERT`)。
-    -   **`s` 键**: 设定为 **快门优先** 模式，并将操作焦点切换到快门速度 (`SPEED`)。
+    -   **`a` 键**: 设定为 **光圈优先** 模式，并将操作焦点切换到光圈 (`APER`)。
+    -   **`s` 键**: 设定为 **快门优先** 模式，并将操作焦点切换到快门速度 (`SSPD`)。
     -   **`i` 键**: 将操作焦点切换到 ISO。此操作**不会**改变当前的测光模式（光圈/快门优先）。
 -   **`.` 键 (上箭头)**: 向上滚动并选择当前焦点参数的值。
 -   **`;` 键 (下箭头)**: 向下滚动并选择当前焦点参数的值。
