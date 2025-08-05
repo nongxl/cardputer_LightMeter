@@ -61,6 +61,9 @@ This project is developed for deployment using **UIFlow2.0**.
 > I am currently unable to export the firmware as a `.bin` file. I have tried compiling the code by embedding it into an official M5Stack UIFlow2.0 project and a standard MicroPython project, and have also attempted to use the export feature in M5Burner, but none of these methods have been successful. This may be due to an issue with my development environment that I am currently unable to resolve. If anyone is able to build a `.bin` firmware for this project, I would be very grateful if you could share it. Thank you.    
 ![App Screenshot](UIFlow2-1.jpg)
 ![App Screenshot](UIFlow2-2.jpg)
+### Acknowledgements
+
+Special thanks to Gemini Code Assist for helping me solve coding challenges. My primary role in this project was to define the requirements and perform testing. Gemini Code Assist proved to be an excellent coding partner, especially when the software requirements and the methods for verifying them were clearly defined.
 ---
 
 <a name="中文"></a>
@@ -119,3 +122,6 @@ This project is developed for deployment using **UIFlow2.0**.
 > 我不知道如何把固件导出成.bin文件，我试过将代码固化到M5Stack官方的UIFlow2.0项目中或者micropython项目中进行编译，也试过M5burner的导出功能均不能实现，可能是我开发环境的原因我暂时无法解决。如果谁可以制作这个项目的.bin固件，请也发给我一份，谢谢。
 ![应用截图](UIFlow2-1.jpg)
 ![应用截图](UIFlow2-2.jpg)
+### 致谢
+
+感谢Gemini Code Assist帮我解决代码问题，我参与的工作主要是提出需求和进行测试。当你明确知道软件需求以及如何验证这些需求是否得以很好的实现时，Gemini Code Assist是一个很棒的编码帮手。
