@@ -69,6 +69,44 @@ I have added the compiled .bin firmware and uploaded it to M5Burner. You can now
 
 ![searchInM5bunner.jpg](searchInM5bunner.jpg)
 
+#### Method 3: Build from Source (How to compile UIFlow2.0 code into a .bin firmware)
+
+1.  Clone `uiflow-micropython` after configuring the ESP-IDF environment.
+    ```bash
+    git clone --depth 1 --branch v5.4.1 https://github.com/espressif/esp-idf.git
+    git -C esp-idf submodule update --init --recursive
+    ./esp-idf/install.sh
+    . ./esp-idf/export.sh
+    git clone https://github.com/m5stack/uiflow_micropython
+    cd uiflow_micropython/m5stack
+    # Initialize and update git submodules (dependencies like esp-idf)
+    make submodules
+    # Apply M5Stack's custom patches
+    make patch
+    # Compile the tool for creating the littlefs filesystem image
+    make littlefs
+    # Compile the MicroPython cross-compiler to convert .py to .mpy
+    make mpy-cross
+    ```
+2.  Replace `uiflow_micropython/m5stack/fs/user/main.py` with `main.py` from this project.
+3.  Modify `uiflow_micropython/m5stack/fs/user/boot.py`:
+    Change:
+    ```python
+    try:
+            boot_option = nvs.get_u8("boot_option")
+        except:
+            boot_option = 1  # default
+    ```
+    to:
+    ```python
+    boot_option = 0
+    ```
+4.  Go back to the `uiflow_micropython/m5stack` directory and compile:
+    ```bash
+    make BOARD=M5STACK_Cardputer pack_all
+    ```
+    You will get a firmware file like `uiflow_micropython/m5stack/build-M5STACK_Cardputer/uiflow-a0699092-esp32s3-8mb-cardputer-v2.3.5-20250924.bin`.
+
 ### Acknowledgements
 
 Special thanks to Gemini Code Assist for helping me solve coding challenges. My primary role in this project was to define the requirements and perform testing. Gemini Code Assist proved to be an excellent coding partner, especially when the software requirements and the methods for verifying them were clearly defined.
@@ -137,6 +175,44 @@ Special thanks to Gemini Code Assist for helping me solve coding challenges. My 
 我添加了编译的.bin固件，已经上传到M5bunner，现在可以通过M5bunner下载和烧录这个固件了。但是使用M5launcher加载运行不正常，我还没找到原因。
 
 ![searchInM5bunner.jpg](searchInM5bunner.jpg)
+
+#### 方法三：从源码编译（如何将UIFlow2.0的代码编译成.bin固件）
+
+1.  配置ESP-IDF环境后克隆uiflow-micropython
+    ```bash
+    git clone --depth 1 --branch v5.4.1 https://github.com/espressif/esp-idf.git
+    git -C esp-idf submodule update --init --recursive
+    ./esp-idf/install.sh
+    . ./esp-idf/export.sh
+    git clone https://github.com/m5stack/uiflow_micropython
+    cd uiflow_micropython/m5stack
+    # 初始化并更新git子模块（如esp-idf等依赖项）
+    make submodules
+    # 应用M5Stack的自定义补丁
+    make patch
+    # 编译用于创建littlefs文件系统镜像的工具
+    make littlefs
+    # 编译MicroPython交叉编译器，用于将.py文件转换为.mpy文件
+    make mpy-cross
+    ```
+2.  将`uiflow_micropython/m5stack/fs/user/main.py`替换成本项目的`main.py`
+3.  更改`uiflow_micropython/m5stack/fs/user/boot.py`
+    将
+    ```python
+    try:
+            boot_option = nvs.get_u8("boot_option")
+        except:
+            boot_option = 1  # default
+    ```
+    改成
+    ```python
+    boot_option = 0
+    ```
+4.  回到`uiflow_micropython/m5stack`目录执行编译
+    ```bash
+    make BOARD=M5STACK_Cardputer pack_all
+    ```
+    最终得到类似`uiflow_micropython/m5stack/build-M5STACK_Cardputer/uiflow-a0699092-esp32s3-8mb-cardputer-v2.3.5-20250924.bin`的固件。
 
 ### 致谢
 
