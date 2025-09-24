@@ -44,7 +44,9 @@ A feature-rich photography light meter application for the M5Stack Cardputer, de
 -   **`.` key (Up Arrow)**: Scrolls up and selects a value for the focused parameter.
 -   **`;` key (Down Arrow)**: Scrolls down and selects a value for the focused parameter.
 
-### Installation (UIFlow2.0)
+### Installation
+
+#### Method 1: Using UIFlow2.0
 
 This project is developed for deployment using **UIFlow2.0**.
 
@@ -57,10 +59,16 @@ This project is developed for deployment using **UIFlow2.0**.
     *   In the UIFlow2.0 IDE, click on the "Open..." menu option (the folder icon).
     *   Select the downloaded `cardputer_LightMeter.m5f2` file to import the entire project.
 6.  **Deploy**: Click the **Download the program to device** button to automatically download and execute the program on your Cardputer.
-> **A Note on `.bin` Firmware:**
-> build-M5STACK_Cardputer not test yet, do not flash in your device   
+
 ![App Screenshot](UIFlow2-1.jpg)
 ![App Screenshot](UIFlow2-2.jpg)
+
+#### Method 2: Using M5Burner (.bin firmware)
+
+I have added the compiled .bin firmware and uploaded it to M5Burner. You can now download and burn this firmware using M5Burner. However, it doesn't run correctly when loaded with M5Launcher, and I haven't found the reason yet.
+
+![searchInM5bunner.jpg](searchInM5bunner.jpg)
+
 ### Acknowledgements
 
 Special thanks to Gemini Code Assist for helping me solve coding challenges. My primary role in this project was to define the requirements and perform testing. Gemini Code Assist proved to be an excellent coding partner, especially when the software requirements and the methods for verifying them were clearly defined.
@@ -105,7 +113,9 @@ Special thanks to Gemini Code Assist for helping me solve coding challenges. My 
 -   **`.` 键 (上箭头)**: 向上滚动并选择当前焦点参数的值。
 -   **`;` 键 (下箭头)**: 向下滚动并选择当前焦点参数的值。
 
-### 安装与部署 (UIFlow2.0)
+### 安装与部署
+
+#### 方法一：使用 UIFlow2.0
 
 本项目使用 **UIFlow2.0** 进行开发和部署。
 
@@ -118,10 +128,16 @@ Special thanks to Gemini Code Assist for helping me solve coding challenges. My 
     *   在 UIFlow2.0 IDE 中，点击“打开...”菜单选项（文件夹图标）。
     *   选择已下载的 `cardputer_LightMeter.m5f2` 文件以导入整个项目。
 6.  **部署**: 点击 **下载到设备** 按钮，程序将会自动下载并到您的 Cardputer 上执行。
-> **关于 `.bin` 固件的说明：**
-> build-M5STACK_Cardputer中是固化到uiflow-micropython中编译的版本，未经过测试。暂时不要刷到设备中
+
 ![应用截图](UIFlow2-1.jpg)
 ![应用截图](UIFlow2-2.jpg)
+
+#### 方法二：使用 M5Burner（.bin 固件）
+
+我添加了编译的.bin固件，已经上传到M5bunner，现在可以通过M5bunner下载和烧录这个固件了。但是使用M5launcher加载运行不正常，我还没找到原因。
+
+![searchInM5bunner.jpg](searchInM5bunner.jpg)
+
 ### 致谢
 
 感谢Gemini Code Assist帮我解决代码问题，我参与的工作主要是提出需求和进行测试。当你明确知道软件需求以及如何验证这些需求是否得以很好的实现时，Gemini Code Assist是一个很棒的编码帮手。
