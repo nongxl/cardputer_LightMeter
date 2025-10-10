@@ -37,7 +37,8 @@ A feature-rich photography light meter application for the M5Stack Cardputer, de
 
 #### Key Controls
 
--   **`i` / `a` / `s` keys**: Switch operational focus and metering mode.
+-   **`Tab` key**: Cycles the operational focus between ISO, APERure (`APER`), and Shutter Speed (`SSPD`).
+-   **`i` / `a` / `s` keys**: Directly switch operational focus and metering mode.
     -   **`a` key**: Sets to **APERure Priority** mode and moves focus to APERure (`APER`).
     -   **`s` key**: Sets to **Shutter Priority** mode and moves focus to Shutter Speed (`SSPD`).
     -   **`i` key**: Moves focus to ISO. This action **does not** change the current metering mode (A/S).
@@ -144,7 +145,8 @@ Special thanks to Gemini Code Assist for helping me solve coding challenges. My 
 
 #### 按键控制
 
--   **`i` / `a` / `s` 键**: 切换操作焦点和测光模式。
+-   **`Tab` 键**: 在 ISO、光圈 (`APER`) 和快门速度 (`SSPD`) 之间循环切换操作焦点。
+-   **`i` / `a` / `s` 键**: 直接切换操作焦点和测光模式。
     -   **`a` 键**: 设定为 **光圈优先** 模式，并将操作焦点切换到光圈 (`APER`)。
     -   **`s` 键**: 设定为 **快门优先** 模式，并将操作焦点切换到快门速度 (`SSPD`)。
     -   **`i` 键**: 将操作焦点切换到 ISO。此操作**不会**改变当前的测光模式（光圈/快门优先）。

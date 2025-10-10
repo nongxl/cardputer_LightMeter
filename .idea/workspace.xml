@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5cdf172-0716-46b8-8512-64a9e26ff362" name="更改" comment="添加编译文件">
-      <change afterPath="$PROJECT_DIR$/searchInM5bunner.jpg" afterDir="false" />
+    <list default="true" id="a5cdf172-0716-46b8-8512-64a9e26ff362" name="更改" comment="添加编译文件，更新README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build-M5STACK_Cardputer/fs-user.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build-M5STACK_Cardputer/fs-user.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build-M5STACK_Cardputer/micropython.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build-M5STACK_Cardputer/micropython.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build-M5STACK_Cardputer/uiflow-a0699092-esp32s3-8mb-cardputer-v2.3.5-20250918.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build-M5STACK_Cardputer/uiflow-a0699092-esp32s3-8mb-cardputer-v2.3.5-20250924.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build-M5STACK_Cardputer/uiflow-a0699092.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build-M5STACK_Cardputer/uiflow-a0699092.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build-M5STACK_Cardputer/fs-system.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build-M5STACK_Cardputer/fs-user.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build-M5STACK_Cardputer/micropython.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build-M5STACK_Cardputer/nvs.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build-M5STACK_Cardputer/uiflow-a0699092-esp32s3-8mb-cardputer-v2.3.5-20250924.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build-M5STACK_Cardputer/uiflow-a0699092.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cardputer_LightMeter.m5f2" beforeDir="false" afterPath="$PROJECT_DIR$/cardputer_LightMeter.m5f2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,14 +56,14 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/workspace/PyCharm/cardputer_LightMeter/build-M5STACK_Cardputer",
-    "settings.editor.selected.configurable": "http.proxy"
+    "last_opened_file_path": "D:/workspace/PyCharm/cardputer_LightMeter",
+    "settings.editor.selected.configurable": "dev.micropythontools.configurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\workspace\PyCharm\cardputer_LightMeter\build-M5STACK_Cardputer" />
       <recent name="D:\workspace\PyCharm\cardputer_LightMeter" />
+      <recent name="D:\workspace\PyCharm\cardputer_LightMeter\build-M5STACK_Cardputer" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -256,7 +258,23 @@
       <option name="project" value="LOCAL" />
       <updated>1758186304253</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="添加编译文件，更新README.md">
+      <option name="closed" value="true" />
+      <created>1758677318532</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1758677318532</updated>
+    </task>
+    <task id="LOCAL-00024" summary="添加编译文件，更新README.md">
+      <option name="closed" value="true" />
+      <created>1758678473985</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1758678473985</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,6 +303,7 @@
     <MESSAGE value="更正README.me" />
     <MESSAGE value="致谢" />
     <MESSAGE value="添加编译文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加编译文件" />
+    <MESSAGE value="添加编译文件，更新README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加编译文件，更新README.md" />
   </component>
 </project>

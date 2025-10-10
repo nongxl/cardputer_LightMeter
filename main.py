@@ -364,6 +364,25 @@ class LightMeterApp:
         self._update_parameter_colors()
         self._update_and_recalculate()
 
+    def _change_mode(self, new_mode):
+        """
+        统一处理模式切换的逻辑。
+        :param new_mode: 新的模式 ('i', 'a', 's')
+        """
+        self.current_mode = new_mode
+        if new_mode == 'a':
+            self.priority_mode = 'A'
+        elif new_mode == 's':
+            self.priority_mode = 'S'
+
+        mode_map = {'i': 'ISO', 'a': 'Aperture', 's': 'Shutter'}
+        param_key = mode_map[self.current_mode]
+        target_idx = self.preview_indices[param_key]
+        self.anim_current_y = -target_idx * LIST_ITEM_HEIGHT
+
+        self._update_parameter_colors()
+        self._update_and_recalculate()
+
     def kb_pressed_event(self, event_arg):
         """
         键盘事件回调函数，处理所有“按键按下”的瞬时事件。
@@ -375,22 +394,15 @@ class LightMeterApp:
         if not key_str or self.is_animating:
             return
 
-        if key_str in ['i', 'a', 's']:
-            # --- 处理模式切换 ---
-            self.current_mode = key_str
-            if key_str == 'a':
-                self.priority_mode = 'A'
-            elif key_str == 's':
-                self.priority_mode = 'S'
-
-            mode_map = {'i': 'ISO', 'a': 'Aperture', 's': 'Shutter'}
-            param_key = mode_map[self.current_mode]
-            target_idx = self.preview_indices[param_key]
-            self.anim_current_y = -target_idx * LIST_ITEM_HEIGHT
-
-            self._update_parameter_colors()
-            self._update_and_recalculate()
-
+        if key_str == '\t':
+            # --- [新增] 使用Tab键循环切换模式 ---
+            modes = ['i', 'a', 's']
+            current_index = modes.index(self.current_mode)
+            next_index = (current_index + 1) % len(modes)
+            self._change_mode(modes[next_index])
+        elif key_str in ['i', 'a', 's']:
+            # --- 处理直接模式切换 ---
+            self._change_mode(key_str)
         elif key_str in [UP_KEY_STR, DOWN_KEY_STR]:
             # --- 处理列表滚动 ---
             direction = 1 if key_str == UP_KEY_STR else -1
